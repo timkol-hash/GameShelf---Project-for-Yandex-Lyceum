@@ -45,11 +45,11 @@ class DataBase:
         return games
 
     @staticmethod
-    def update_game(game_id, title, genre):
+    def update_game(game_id, title, genre, cover_path=None):
         with sqlite3.connect("data/games.db") as db:
             db.execute(
-                "UPDATE games SET title = ?, genre = ? WHERE id = ?",
-                (title, genre, game_id),
+                "UPDATE games SET title = ?, genre = ?, cover_path = ? WHERE id = ?",
+                (title, genre, cover_path, game_id)
             )
 
     @staticmethod

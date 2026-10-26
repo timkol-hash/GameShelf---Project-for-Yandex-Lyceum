@@ -22,7 +22,7 @@ class GameForm(QDialog):
             "Sandbox", "Racing", "Strategy",
             "Horror", "Shooter",
         ])
-        self.cover_path = None
+        self.cover_path = game.get("cover_path") if game else None
         self.coverButton = QPushButton("Выбрать обложку")
         self.coverButton.clicked.connect(self.choose_cover)
         layout.addWidget(self.genre_input)

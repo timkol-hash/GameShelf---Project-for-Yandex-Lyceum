@@ -144,7 +144,10 @@ class MainWindow(QMainWindow):
         form = GameForm(self, game)
 
         if form.exec():
-            title, genre = form.get_data()
+            data = form.get_data()
+            title = data["title"]
+            genre = data["genre"]
+            cover_path = data["cover_path"]
 
             if not title:
                 QMessageBox.warning(
@@ -152,7 +155,9 @@ class MainWindow(QMainWindow):
                 )
                 return
 
-            DataBase.update_game(game["id"], title, genre)
+            DataBase.update_game(
+                game["id"], title, genre, cover_path
+            )
             self.games = DataBase.get_games()
             self.fill_genres()
             self.update_games()
