@@ -9,7 +9,6 @@ class GameForm(QDialog):
     def __init__(self, parent=None, game=None):
         super().__init__(parent)
         self.game = game
-        self.titleEdit = QLineEdit()
         self.setWindowTitle("Добавить игру")
         self.setMinimumWidth(300)
         layout = QVBoxLayout(self)
@@ -38,8 +37,8 @@ class GameForm(QDialog):
 
     def get_data(self):
         return {
-            "title": self.titleEdit.text().strip(),
-            "genre": self.genreComboBox.currentText(),
+            "title": self.title_input.text().strip(),
+            "genre": self.genre_input.currentText(),
             "cover_path": self.cover_path
         }
 

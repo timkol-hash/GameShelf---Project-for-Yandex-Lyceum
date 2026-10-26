@@ -109,12 +109,8 @@ class MainWindow(QMainWindow):
             self.fill_genres()
             self.update_games()
 
-    def add_new_game(self, title, genre):
-        DataBase.add_game(
-            data["title"],
-            data["genre"],
-            data["cover_path"]
-        )
+    def add_new_game(self, title, genre, cover_path=None):
+        DataBase.add_game(title, genre, cover_path)
         self.pageTitleLabel.setText(
             f"Твоя игровая коллекция ({DataBase.get_game_count()})"
         )
@@ -126,7 +122,10 @@ class MainWindow(QMainWindow):
         form = GameForm(self)
 
         if form.exec():
-            title, genre = form.get_data()
+            data = form.get_data()
+            title = data["title"]
+            genre = data["genre"]
+            cover_path = data["cover_path"]
 
             if not title:
                 QMessageBox.warning(
@@ -136,7 +135,7 @@ class MainWindow(QMainWindow):
                 )
                 return
 
-            DataBase.add_game(title, genre)
+            DataBase.add_game(title, genre, cover_path)
             self.games = DataBase.get_games()
             self.fill_genres()
             self.update_games()

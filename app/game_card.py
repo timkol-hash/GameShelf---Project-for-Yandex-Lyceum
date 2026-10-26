@@ -12,7 +12,7 @@ from PyQt6.QtCore import Qt
 class GameCard(QFrame):
     def __init__(self, game, on_open=None, on_delete=None):
         super().__init__()
-        self.photo = QPixmap("images/witcher3.png")
+        self.photo = QPixmap(game.get("cover_path"))
         self.game = game
         self.on_open = on_open
         self.on_delete = on_delete
