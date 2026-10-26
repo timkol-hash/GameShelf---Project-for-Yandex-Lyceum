@@ -1,0 +1,159 @@
+from pathlib import Path
+
+from PyQt6 import uic
+from PyQt6.QtWidgets import (
+    QMainWindow,
+    QMessageBox,
+    QVBoxLayout,
+    QWidget,
+)
+
+from app.game_card import GameCard
+from app.database import DataBase
+from app.game_form import GameForm
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+UI_PATH = BASE_DIR / "ui" / "main_window.ui"
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi(str(UI_PATH), self)
+        self.games = DataBase.get_games()
+        self.cards_layout = QVBoxLayout()
+        self.cards_layout.setContentsMargins(0, 0, 0, 0)
+        self.cards_layout.setSpacing(12)
+        self.gamesContentLayout.insertLayout(0, self.cards_layout)
+        self.fill_genres()
+        self.searchEdit.textChanged.connect(self.update_games)
+        self.genreComboBox.currentTextChanged.connect(
+            self.update_games
+        )
+        self.update_games()
+        self.pageTitleLabel.setText(
+            f"Твоя игровая коллекция ({DataBase.get_game_count()})"
+        )
+        self.addGameButton.clicked.connect(self.open_game_form)
+
+    def fill_genres(self):
+        genres = sorted({game["genre"] for game in self.games})
+
+        self.genreComboBox.blockSignals(True)
+        self.genreComboBox.clear()
+        self.genreComboBox.addItem("Все жанры")
+        self.genreComboBox.addItems(genres)
+        self.genreComboBox.blockSignals(False)
+
+    def update_games(self):
+        search_text = self.searchEdit.text().strip().lower()
+        selected_genre = self.genreComboBox.currentText()
+        while self.cards_layout.count():
+            item = self.cards_layout.takeAt(0)
+            widget = item.widget()
+
+            if widget:
+                widget.deleteLater()
+        found = 0
+        for game in self.games:
+            title_matches = search_text in game["title"].lower()
+            genre_matches = (
+                    selected_genre == "Все жанры"
+                    or game["genre"] == selected_genre
+            )
+
+            if title_matches and genre_matches:
+                found += 1
+                card = GameCard(
+                    game,
+                    on_open=self.show_game,
+                    on_delete=self.delete_game,
+                )
+                card.edit_callback = self.edit_game
+                self.cards_layout.addWidget(card)
+        if found == 0:
+            from PyQt6.QtWidgets import QLabel
+            self.cards_layout.addWidget(
+                QLabel("Игры не найдены")
+            )
+        self.pageTitleLabel.setText(
+            f"Твоя игровая коллекция ({DataBase.get_game_count()})"
+        )
+        self.cards_layout.addStretch()
+
+    def show_game(self, game):
+        QMessageBox.information(
+            self,
+            game["title"],
+            f'Название: {game["title"]}\n'
+            f'Жанр: {game["genre"]}',
+        )
+
+    def delete_game(self, game):
+        answer = QMessageBox.question(
+            self,
+            "Удаление игры",
+            f'Удалить игру «{game["title"]}»?',
+            QMessageBox.StandardButton.Yes
+            | QMessageBox.StandardButton.No,
+        )
+
+        if answer == QMessageBox.StandardButton.Yes:
+            DataBase.delete_game(game["id"])
+            self.games = DataBase.get_games()
+            self.pageTitleLabel.setText(
+                f"Твоя игровая коллекция ({DataBase.get_game_count()})"
+            )
+            self.fill_genres()
+            self.update_games()
+            self.fill_genres()
+            self.update_games()
+
+    def add_new_game(self, title, genre):
+        DataBase.add_game(
+            data["title"],
+            data["genre"],
+            data["cover_path"]
+        )
+        self.pageTitleLabel.setText(
+            f"Твоя игровая коллекция ({DataBase.get_game_count()})"
+        )
+        self.games = DataBase.get_games()
+        self.fill_genres()
+        self.update_games()
+
+    def open_game_form(self):
+        form = GameForm(self)
+
+        if form.exec():
+            title, genre = form.get_data()
+
+            if not title:
+                QMessageBox.warning(
+                    self,
+                    "Ошибка",
+                    "Введи название игры!"
+                )
+                return
+
+            DataBase.add_game(title, genre)
+            self.games = DataBase.get_games()
+            self.fill_genres()
+            self.update_games()
+
+    def edit_game(self, game):
+        form = GameForm(self, game)
+
+        if form.exec():
+            title, genre = form.get_data()
+
+            if not title:
+                QMessageBox.warning(
+                    self, "Ошибка", "Введи название игры!"
+                )
+                return
+
+            DataBase.update_game(game["id"], title, genre)
+            self.games = DataBase.get_games()
+            self.fill_genres()
+            self.update_games()

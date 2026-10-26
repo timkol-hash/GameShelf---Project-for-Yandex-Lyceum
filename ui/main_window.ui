@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>GameShelf — Игровая библиотека</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+
+QMainWindow, QWidget#centralwidget {
+    background-color: #151515;
+    color: #eeeeee;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 10pt;
+}
+
+QLabel {
+    color: #eeeeee;
+    background: transparent;
+}
+
+QLabel#logoLabel {
+    color: #ffffff;
+    font-size: 22pt;
+    font-weight: bold;
+}
+
+QLabel#pageTitleLabel {
+    font-size: 19pt;
+    font-weight: bold;
+}
+
+QPushButton {
+    background-color: #353535;
+    color: #ffffff;
+    border: 1px solid #454545;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #484848;
+}
+
+QPushButton:pressed {
+    background-color: #292929;
+}
+
+QLineEdit, QComboBox {
+    background-color: #222222;
+    color: #eeeeee;
+    border: 1px solid #3d3d3d;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 20px;
+}
+
+QLineEdit:focus, QComboBox:focus {
+    border: 1px solid #777777;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #222222;
+    color: #eeeeee;
+    selection-background-color: #454545;
+    selection-color: #ffffff;
+    border: 1px solid #3d3d3d;
+}
+
+QScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+QScrollArea QWidget#scrollAreaWidgetContents {
+    background-color: transparent;
+}
+
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <property name="spacing">
+     <number>18</number>
+    </property>
+    <property name="leftMargin">
+     <number>24</number>
+    </property>
+    <property name="topMargin">
+     <number>22</number>
+    </property>
+    <property name="rightMargin">
+     <number>24</number>
+    </property>
+    <property name="bottomMargin">
+     <number>22</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="headerLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="logoLabel">
+        <property name="text">
+         <string>GameShelf</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="headerSpacer">
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="addGameButton">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>42</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>+ Добавить игру</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="pageTitleLabel">
+      <property name="text">
+       <string>Твоя игровая библиотека</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="controlsLayout">
+      <property name="spacing">
+       <number>12</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLineEdit" name="searchEdit">
+        <property name="placeholderText">
+         <string>Поиск игр...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="genreComboBox">
+        <property name="minimumSize">
+         <size>
+          <width>180</width>
+          <height>42</height>
+         </size>
+        </property>
+        <item>
+         <property name="text">
+          <string>Все жанры</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QScrollArea" name="gamesScrollArea">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>852</width>
+         <height>364</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="gamesContentLayout">
+        <property name="spacing">
+         <number>14</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <spacer name="gamesBottomSpacer">
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
