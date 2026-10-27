@@ -29,15 +29,14 @@ GameShelf — настольное приложение на Python для со�
 ```text
 GameShelf/
 ├── app/
-│   ├── __init__.py
 │   ├── database.py       # Работа с базой данных
 │   ├── game_card.py      # Карточка игры
 │   ├── game_form.py      # Форма добавления и редактирования
 │   └── main_window.py    # Главное окно приложения
+├── build/
+│   └── GameShelf/        #Билд     
 ├── data/
-│   └── games.db          # Локальная база данных
-├── images/
-│   └── covers/           # Обложки игр
+│   └── games.db          # Локальная база данных          # Обложки игр
 ├── ui/
 │   └── main_window.ui    # Интерфейс главного окна
 ├── main.py               # Точка входа
@@ -92,6 +91,8 @@ python -m pip install -r requirements.txt
 ```bash
 python main.py
 ```
+
+либо запусти через GameShelf.exe
 
 Приложение использует SQLite для хранения данных. Убедись, что необходимые папки доступны для записи и база данных
 инициализируется при запуске.
