@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QVBoxLayout,
     QWidget,
+    QLabel
 )
 
 from app.game_card import GameCard
@@ -21,6 +22,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         uic.loadUi(str(UI_PATH), self)
         self.games = DataBase.get_games()
+        self.show_favorites_only = False
         self.cards_layout = QVBoxLayout()
         self.cards_layout.setContentsMargins(0, 0, 0, 0)
         self.cards_layout.setSpacing(12)
@@ -35,6 +37,8 @@ class MainWindow(QMainWindow):
             f"Твоя игровая коллекция ({DataBase.get_game_count()})"
         )
         self.addGameButton.clicked.connect(self.open_game_form)
+        self.favoritesButton.clicked.connect(self.show_favorites)
+        self.collectionButton.clicked.connect(self.show_collection)
 
     def fill_genres(self):
         genres = sorted({game["genre"] for game in self.games})
@@ -62,17 +66,23 @@ class MainWindow(QMainWindow):
                     or game["genre"] == selected_genre
             )
 
-            if title_matches and genre_matches:
+            is_favorite = bool(game.get("is_favorite", 0))
+
+            favorite_matches = (
+                    not self.show_favorites_only or is_favorite
+            )
+
+            if title_matches and genre_matches and favorite_matches:
                 found += 1
                 card = GameCard(
                     game,
                     on_open=self.show_game,
                     on_delete=self.delete_game,
+                    on_favorite=self.toggle_favorite
                 )
                 card.edit_callback = self.edit_game
                 self.cards_layout.addWidget(card)
         if found == 0:
-            from PyQt6.QtWidgets import QLabel
             self.cards_layout.addWidget(
                 QLabel("Игры не найдены")
             )
@@ -80,6 +90,15 @@ class MainWindow(QMainWindow):
             f"Твоя игровая коллекция ({DataBase.get_game_count()})"
         )
         self.cards_layout.addStretch()
+
+    def toggle_favorite(self, game):
+        DataBase.toggle_favorite(game["id"])
+        self.games = DataBase.get_games()
+        self.update_games()
+
+    def show_favorites(self):
+        self.show_favorites_only = not self.show_favorites_only
+        self.update_games()
 
     def show_game(self, game):
         QMessageBox.information(
@@ -116,6 +135,10 @@ class MainWindow(QMainWindow):
         )
         self.games = DataBase.get_games()
         self.fill_genres()
+        self.update_games()
+
+    def show_collection(self):
+        self.show_favorites_only = False
         self.update_games()
 
     def open_game_form(self):

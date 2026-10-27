@@ -10,12 +10,13 @@ from PyQt6.QtCore import Qt
 
 
 class GameCard(QFrame):
-    def __init__(self, game, on_open=None, on_delete=None):
+    def __init__(self, game, on_open=None, on_delete=None, on_favorite=None):
         super().__init__()
         self.photo = QPixmap(game.get("cover_path"))
         self.game = game
         self.on_open = on_open
         self.on_delete = on_delete
+        self.on_favorite = on_favorite
 
         self.setObjectName("gameCard")
         self.setStyleSheet("""
@@ -78,9 +79,14 @@ class GameCard(QFrame):
 
         main_layout.addLayout(info_layout, 1)
 
-        open_button = QPushButton("В избранное")
-        open_button.clicked.connect(self.open_game)
-        main_layout.addWidget(open_button)
+        if game.get("is_favorite"):
+            favorite_button = QPushButton("В избранном")
+            favorite_button.clicked.connect(self.on_favorite_clicked)
+            main_layout.addWidget(favorite_button)
+        else:
+            favorite_button = QPushButton("В избранное")
+            favorite_button.clicked.connect(self.on_favorite_clicked)
+            main_layout.addWidget(favorite_button)
 
         open_button = QPushButton("Подробнее")
         open_button.clicked.connect(self.open_game)
@@ -98,13 +104,13 @@ class GameCard(QFrame):
         if self.on_open:
             self.on_open(self.game)
 
+    def on_favorite_clicked(self):
+        if self.on_favorite:
+            self.on_favorite(self.game)
+
     def delete_game(self):
         if self.on_delete:
             self.on_delete(self.game)
-
-    def edit_game(self):
-        if self.on_open:
-            self.on_open(self.game)
 
     def edit_game(self):
         callback = getattr(self, "edit_callback", None)

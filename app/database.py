@@ -20,6 +20,11 @@ class DataBase:
 
             if "is_favorite" not in columns:
                 db.execute("ALTER TABLE games ADD COLUMN is_favorite INTEGER")
+
+            db.execute(
+                "UPDATE games SET is_favorite = 0 WHERE is_favorite IS NULL"
+            )
+
             if "cover_path" not in columns:
                 db.execute("ALTER TABLE games ADD COLUMN cover_path TEXT")
             db.commit()
@@ -65,7 +70,7 @@ class DataBase:
             row = cursor.fetchone()
 
             if row is not None:
-                new_value = 1 - row[0]
+                new_value = 1 - (row[0] or 0)
                 db.execute(
                     "UPDATE games SET is_favorite = ? WHERE id = ?",
                     (new_value, game_id)
