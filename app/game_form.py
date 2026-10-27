@@ -15,6 +15,9 @@ class GameForm(QDialog):
         layout.addWidget(QLabel("Название игры"))
         self.title_input = QLineEdit()
         layout.addWidget(self.title_input)
+        layout.addWidget(QLabel("Описание"))
+        self.title_about = QLineEdit()
+        layout.addWidget(self.title_about)
         layout.addWidget(QLabel("Жанр"))
         self.genre_input = QComboBox()
         self.genre_input.addItems([
@@ -33,13 +36,15 @@ class GameForm(QDialog):
         if game:
             self.title_input.setText(game["title"])
             self.genre_input.setCurrentText(game["genre"])
+            self.title_about.setText(game["about"])
             self.setWindowTitle("Редактировать игру")
 
     def get_data(self):
         return {
             "title": self.title_input.text().strip(),
             "genre": self.genre_input.currentText(),
-            "cover_path": self.cover_path
+            "cover_path": self.cover_path,
+            "about": self.title_about.text().strip()
         }
 
     def choose_cover(self):

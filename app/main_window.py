@@ -105,7 +105,8 @@ class MainWindow(QMainWindow):
             self,
             game["title"],
             f'Название: {game["title"]}\n'
-            f'Жанр: {game["genre"]}',
+            f'Жанр: {game["genre"]}\n'
+            f'Описание: {game["about"]}',
         )
 
     def delete_game(self, game):
@@ -148,6 +149,7 @@ class MainWindow(QMainWindow):
             data = form.get_data()
             title = data["title"]
             genre = data["genre"]
+            about = data["about"]
             cover_path = data["cover_path"]
 
             if not title:
@@ -158,7 +160,7 @@ class MainWindow(QMainWindow):
                 )
                 return
 
-            DataBase.add_game(title, genre, cover_path)
+            DataBase.add_game(title, genre, cover_path, about)
             self.games = DataBase.get_games()
             self.fill_genres()
             self.update_games()
@@ -170,6 +172,7 @@ class MainWindow(QMainWindow):
             data = form.get_data()
             title = data["title"]
             genre = data["genre"]
+            about = data["about"]
             cover_path = data["cover_path"]
 
             if not title:
@@ -179,7 +182,7 @@ class MainWindow(QMainWindow):
                 return
 
             DataBase.update_game(
-                game["id"], title, genre, cover_path
+                game["id"], title, genre, cover_path, about
             )
             self.games = DataBase.get_games()
             self.fill_genres()
