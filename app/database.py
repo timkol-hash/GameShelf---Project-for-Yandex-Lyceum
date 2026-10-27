@@ -12,11 +12,14 @@ class DataBase:
                 title TEXT NOT NULL,
                 genre TEXT NOT NULL,
                 cover_path TEXT
+                is_favorite INTEGER
             )""")
             columns = [
                 row[1] for row in db.execute("PRAGMA table_info(games)")
             ]
 
+            if "is_favorite" not in columns:
+                db.execute("ALTER TABLE games ADD COLUMN is_favorite INTEGER")
             if "cover_path" not in columns:
                 db.execute("ALTER TABLE games ADD COLUMN cover_path TEXT")
             db.commit()
@@ -51,6 +54,22 @@ class DataBase:
                 "UPDATE games SET title = ?, genre = ?, cover_path = ? WHERE id = ?",
                 (title, genre, cover_path, game_id)
             )
+
+    @staticmethod
+    def toggle_favorite(game_id):
+        with sqlite3.connect("data/games.db") as db:
+            cursor = db.execute(
+                "SELECT is_favorite FROM games WHERE id = ?",
+                (game_id,)
+            )
+            row = cursor.fetchone()
+
+            if row is not None:
+                new_value = 1 - row[0]
+                db.execute(
+                    "UPDATE games SET is_favorite = ? WHERE id = ?",
+                    (new_value, game_id)
+                )
 
     @staticmethod
     def delete_game(game_id):

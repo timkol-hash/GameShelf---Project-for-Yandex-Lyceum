@@ -18,9 +18,9 @@ class GameForm(QDialog):
         layout.addWidget(QLabel("Жанр"))
         self.genre_input = QComboBox()
         self.genre_input.addItems([
-            "Action", "RPG", "Adventure",
-            "Sandbox", "Racing", "Strategy",
-            "Horror", "Shooter",
+            "Экшен", "РПГ", "Приключение",
+            "Песочница", "Гонки", "Стратегия",
+            "Хоррор", "Шутер",
         ])
         self.cover_path = game.get("cover_path") if game else None
         self.coverButton = QPushButton("Выбрать обложку")
@@ -47,7 +47,7 @@ class GameForm(QDialog):
             self,
             "Выбрать обложку",
             "",
-            "Images (*.png *.jpg *.jpeg *.webp)"
+            "Картинки (*.png *.jpg *.jpeg *.webp)"
         )
 
         if path:

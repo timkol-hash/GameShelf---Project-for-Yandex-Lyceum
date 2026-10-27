@@ -17,7 +17,6 @@ class GameCard(QFrame):
         self.on_open = on_open
         self.on_delete = on_delete
 
-
         self.setObjectName("gameCard")
         self.setStyleSheet("""
             QFrame#gameCard {
@@ -78,6 +77,10 @@ class GameCard(QFrame):
         info_layout.addStretch()
 
         main_layout.addLayout(info_layout, 1)
+
+        open_button = QPushButton("В избранное")
+        open_button.clicked.connect(self.open_game)
+        main_layout.addWidget(open_button)
 
         open_button = QPushButton("Подробнее")
         open_button.clicked.connect(self.open_game)
