@@ -56,7 +56,7 @@ GameShelf/
 Если проект размещён на GitHub, клонируй репозиторий:
 
 ```bash
-git clone <URL_ТВОЕГО_РЕПОЗИТОРИЯ>
+git clone https://github.com/timkol-hash/GameShelf---Project-for-Yandex-Lyceum/tree/main?search=1
 cd GameShelf
 ```
 
