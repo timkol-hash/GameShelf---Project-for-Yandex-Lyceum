@@ -13,10 +13,14 @@ class DataBase:
                 genre TEXT NOT NULL,
                 cover_path TEXT
                 is_favorite INTEGER
+                about TEXT
             )""")
             columns = [
                 row[1] for row in db.execute("PRAGMA table_info(games)")
             ]
+
+            if "about" not in columns:
+                db.execute("ALTER TABLE games ADD COLUMN about TEXT")
 
             if "is_favorite" not in columns:
                 db.execute("ALTER TABLE games ADD COLUMN is_favorite INTEGER")
@@ -30,12 +34,12 @@ class DataBase:
             db.commit()
 
     @staticmethod
-    def add_game(title, genre, cover_path=None):
+    def add_game(title: str, genre: str, cover_path=None, about=None):
         with sqlite3.connect("data/games.db") as db:
             c = db.cursor()
             db.execute(
-                "INSERT INTO games (title, genre, cover_path) VALUES (?, ?, ?)",
-                (title, genre, cover_path)
+                "INSERT INTO games (title, genre, cover_path, about) VALUES (?, ?, ?, ?)",
+                (title, genre, cover_path, about)
             )
             db.commit()
 
@@ -53,15 +57,15 @@ class DataBase:
         return games
 
     @staticmethod
-    def update_game(game_id, title, genre, cover_path=None):
+    def update_game(game_id: int, title: str, genre: str, cover_path=None, about=None):
         with sqlite3.connect("data/games.db") as db:
             db.execute(
-                "UPDATE games SET title = ?, genre = ?, cover_path = ? WHERE id = ?",
-                (title, genre, cover_path, game_id)
+                "UPDATE games SET title = ?, genre = ?, cover_path = ?, about = ? WHERE id = ?",
+                (title, genre, cover_path, about, game_id)
             )
 
     @staticmethod
-    def toggle_favorite(game_id):
+    def toggle_favorite(game_id: int):
         with sqlite3.connect("data/games.db") as db:
             cursor = db.execute(
                 "SELECT is_favorite FROM games WHERE id = ?",
@@ -77,7 +81,7 @@ class DataBase:
                 )
 
     @staticmethod
-    def delete_game(game_id):
+    def delete_game(game_id: int):
         with sqlite3.connect("data/games.db") as db:
             db.execute(
                 "DELETE FROM games WHERE id = ?",
