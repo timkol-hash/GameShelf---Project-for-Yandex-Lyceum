@@ -5,7 +5,6 @@ from PyQt6.QtWidgets import (
     QMainWindow,
     QMessageBox,
     QVBoxLayout,
-    QWidget,
     QLabel
 )
 

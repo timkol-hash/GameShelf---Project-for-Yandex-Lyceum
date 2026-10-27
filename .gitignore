@@ -4,6 +4,6 @@ __pycache__/
 *.py[cod]
 .idea/
 *.db
-build/
-dist/
+build/build/
+build/dist/
 *.spec

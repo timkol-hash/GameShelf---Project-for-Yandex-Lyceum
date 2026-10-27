@@ -11,8 +11,8 @@ class DataBase:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT NOT NULL,
                 genre TEXT NOT NULL,
-                cover_path TEXT
-                is_favorite INTEGER
+                cover_path TEXT,
+                is_favorite INTEGER DEFAULT 0,
                 about TEXT
             )""")
             columns = [
