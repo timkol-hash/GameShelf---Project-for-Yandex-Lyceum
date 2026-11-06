@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>720</width><height>620</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>О проекте</string>
+  </property>
+  <property name="minimumSize">
+   <size><width>520</width><height>380</height></size>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog {
+        background-color: #151515;
+        color: #eeeeee;
+        font-family: "Segoe UI";
+        font-size: 10pt;
+    }
+
+    QLabel {
+        color: #eeeeee;
+        background: transparent;
+    }
+
+    QLabel#titleLabel {
+        color: #ffffff;
+        font-size: 19pt;
+        font-weight: bold;
+    }
+
+    QLabel#sectionLabel, QLabel#sectionLabel2 {
+        color: #ffffff;
+        font-size: 12pt;
+        font-weight: bold;
+    }
+
+    QLabel#bodyLabel, QLabel#bodyLabel2, QLabel#bodyLabel3, QLabel#bodyLabel4, QLabel#bodyLabel5 {
+        color: #eeeeee;
+        font-size: 10pt;
+    }
+
+    QScrollArea {
+        background-color: transparent;
+        border: none;
+    }
+
+    QScrollArea QWidget#scrollContents {
+        background-color: transparent;
+    }
+
+    QScrollBar:vertical {
+        background: transparent;
+        width: 10px;
+        margin: 0;
+    }
+
+    QScrollBar::handle:vertical {
+        background: #3d3d3d;
+        border-radius: 5px;
+        min-height: 24px;
+    }
+
+    QScrollBar::handle:vertical:hover {
+        background: #555555;
+    }
+
+    QScrollBar::add-line:vertical,
+    QScrollBar::sub-line:vertical,
+    QScrollBar::add-page:vertical,
+    QScrollBar::sub-page:vertical {
+        background: none;
+        height: 0;
+    }
+
+    QPushButton {
+        background-color: #353535;
+        color: #ffffff;
+        border: 1px solid #454545;
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-weight: bold;
+    }
+
+    QPushButton:hover {
+        background-color: #484848;
+    }
+
+    QPushButton:pressed {
+        background-color: #292929;
+    }</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="leftMargin"><number>20</number></property>
+   <property name="topMargin"><number>20</number></property>
+   <property name="rightMargin"><number>20</number></property>
+   <property name="bottomMargin"><number>20</number></property>
+   <property name="spacing"><number>16</number></property>
+   <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="text"><string>О проекте</string></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable"><bool>true</bool></property>
+     <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+     <property name="horizontalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>
+     <widget class="QWidget" name="scrollContents">
+      <layout class="QVBoxLayout" name="contentLayout">
+       <property name="leftMargin"><number>0</number></property>
+       <property name="topMargin"><number>0</number></property>
+       <property name="rightMargin"><number>0</number></property>
+       <property name="bottomMargin"><number>0</number></property>
+       <property name="spacing"><number>10</number></property>
+       <item>
+        <widget class="QLabel" name="sectionLabel">
+         <property name="text"><string>О проекте GameShelf</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="bodyLabel">
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="alignment"><set>Qt::AlignTop|Qt::AlignLeft</set></property>
+         <property name="text">
+          <string>GameShelf — это настольное приложение для создания и управления собственной коллекцией видеоигр. Приложение позволяет удобно хранить информацию об играх в одном месте, добавлять новые игры, редактировать существующие записи, удалять ненужные игры и сохранять обложки. Для каждой игры можно указать название, жанр и описание.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="sectionLabel2">
+         <property name="text"><string>Об авторе</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="bodyLabel2">
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="alignment"><set>Qt::AlignTop|Qt::AlignLeft</set></property>
+         <property name="text">
+          <string>Мне 14 лет, я учусь в 8 классе и уже третий год занимаюсь программированием. За это время я успел познакомиться с разными направлениями разработки и получить практический опыт.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="bodyLabel3">
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="alignment"><set>Qt::AlignTop|Qt::AlignLeft</set></property>
+         <property name="text">
+          <string>Также я побывал на офлайн-выпускном Яндекс Лицея, где смог пообщаться с другими учениками и ближе познакомиться с IT-сферой.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="bodyLabel4">
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="alignment"><set>Qt::AlignTop|Qt::AlignLeft</set></property>
+         <property name="text">
+          <string>Создание GameShelf стало для меня возможностью применить полученные знания на практике, попробовать себя в разработке настольных приложений и создать собственный полноценный проект.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="bodyLabel5">
+         <property name="wordWrap"><bool>true</bool></property>
+         <property name="alignment"><set>Qt::AlignTop|Qt::AlignLeft</set></property>
+         <property name="text">
+          <string>Я продолжаю изучать программирование, развивать свои навыки и работать над новыми идеями.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="contentSpacer">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>20</width><height>1</height></size></property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonsLayout">
+     <item>
+      <spacer name="buttonsSpacer">
+       <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="closeButton">
+       <property name="text"><string>Закрыть</string></property>
+       <property name="minimumWidth"><number>120</number></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+  </connection>
+ </connections>
+</ui>
