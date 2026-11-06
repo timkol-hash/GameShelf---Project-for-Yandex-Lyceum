@@ -25,6 +25,7 @@ class GameForm(QDialog):
             "Песочница", "Гонки", "Стратегия",
             "Хоррор", "Шутер",
         ])
+
         self.cover_path = game.get("cover_path") if game else None
         self.coverButton = QPushButton("Выбрать обложку")
         self.coverButton.clicked.connect(self.choose_cover)
