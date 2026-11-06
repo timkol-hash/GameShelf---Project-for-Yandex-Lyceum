@@ -1,11 +1,13 @@
+import sys
 from pathlib import Path
 
 from PyQt6 import uic
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QMainWindow,
     QMessageBox,
     QVBoxLayout,
-    QLabel
+    QLabel, QWidget
 )
 
 from app.game_card import GameCard
@@ -38,6 +40,12 @@ class MainWindow(QMainWindow):
         self.addGameButton.clicked.connect(self.open_game_form)
         self.favoritesButton.clicked.connect(self.show_favorites)
         self.collectionButton.clicked.connect(self.show_collection)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_N and (event.modifiers() == Qt.KeyboardModifier.ControlModifier):
+            self.open_game_form()
+        elif event.key() == Qt.Key.Key_Escape:
+            sys.exit()
 
     def fill_genres(self):
         genres = sorted({game["genre"] for game in self.games})
