@@ -16,6 +16,7 @@ GameShelf — настольное приложение на Python для со�
 - **Счётчик игр** — отображение количества игр в коллекции.
 - **Локальная база данных** — сохранение информации между запусками приложения.
 - **Тёмный интерфейс** — минималистичный дизайн в тёмных оттенках.
+- **Горячие клавиши** — Ctrl+n открывает окно добавления игры & Escape закрывает приложение.
 
 ## Технологии
 
@@ -56,7 +57,7 @@ GameShelf/
 Если проект размещён на GitHub, клонируй репозиторий:
 
 ```bash
-git clone https://github.com/timkol-hash/GameShelf---Project-for-Yandex-Lyceum/tree/main?search=1
+git clone https://github.com/timkol-hash/GameShelf---Project-for-Yandex-Lyceum/tree/main
 cd GameShelf
 ```
 
