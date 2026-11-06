@@ -165,6 +165,13 @@ QScrollArea QWidget#scrollAreaWidgetContents {
        <number>12</number>
       </property>
       <item>
+       <widget class="QPushButton" name="aboutButton">
+        <property name="text">
+         <string>О проекте</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="favoritesButton">
         <property name="minimumSize">
          <size>

@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from app.about import About
 
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
@@ -40,10 +41,16 @@ class MainWindow(QMainWindow):
         self.addGameButton.clicked.connect(self.open_game_form)
         self.favoritesButton.clicked.connect(self.show_favorites)
         self.collectionButton.clicked.connect(self.show_collection)
+        self.aboutButton.clicked.connect(self.about)
+
+    def about(self):
+        About(self).exec()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key.Key_N and (event.modifiers() == Qt.KeyboardModifier.ControlModifier):
             self.open_game_form()
+        elif event.key() == Qt.Key.Key_A and (event.modifiers() == Qt.KeyboardModifier.ControlModifier):
+            self.about()
         elif event.key() == Qt.Key.Key_Escape:
             sys.exit()
 
